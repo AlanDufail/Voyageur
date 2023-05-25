@@ -12,18 +12,20 @@ import {
 } from "react-native";
 
 const Card = ({ title, imageSource }) => {
+  // console.log(title);
   return (
     <View style={styles.card}>
       <View style={styles.cardShadow}>
         <Image source={imageSource} style={styles.image} />
       </View>
-      <Text style={styles.title}>{title}</Text>
+      <View style={styles.selectionCategory}>
+        <Text style={styles.title}>{title}</Text>
+      </View>
     </View>
   );
 };
 
-const CardList = ({ data }) => {
-  // console.log(data);
+const CardsDeals = ({ data }) => {
   const [trips, setTrips] = useState(data);
   const [modalVisible, setModalVisible] = useState(false);
   const [newTripTitle, setNewTripTitle] = useState("");
@@ -42,53 +44,13 @@ const CardList = ({ data }) => {
     console.log("Voyage ajouté");
   };
 
-
-  // console.log(data)
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
       <View style={[styles.cardList, styles.cardShadow]}>
         {trips.map((item, index) => (
-          <Card key={index} title={item.title} imageSource={item.imageSource} />
+          <Card key={index} title={item.pays} imageSource={item.imageSource} />
         ))}
       </View>
-      <View>
-
-      </View>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.addButtonLabel}>+</Text>
-      </TouchableOpacity>
-
-      <Modal visible={modalVisible} animationType="slide" transparent={true}>
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Ajouter un nouveau voyage</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Titre du voyage"
-              placeholderTextColor={"#132D2F"}
-              value={newTripTitle}
-              onChangeText={(text) => setNewTripTitle(text)}
-            />
-            <TouchableOpacity
-              title="Ajouter"
-              onPress={handleAddTrip}
-              style={styles.modalAdd}
-            >
-              <Text style={styles.modalAddText}>Ajouter</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              title="Annuler"
-              onPress={() => setModalVisible(false)}
-              style={styles.modalCancel}
-            >
-              <Text style={styles.modalAddText}>Annuler</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
     </ScrollView>
   );
 };
@@ -100,14 +62,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   card: {
-    width: 110,
-    height: 120,
+    width: 120,
+    height: 110,
     borderRadius: 8,
     overflow: "hidden",
     marginLeft: 16,
-    borderColor: "#132D2F",
+    borderColor: "white",
     borderWidth: 2,
-    padding: 4,
   },
   cardShadow: {
     modalShadow: "#4D4945",
@@ -121,13 +82,13 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   title: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: 8,
-    // backgroundColor: "rgba(0, 0, 0, 0.05)",
-    color: "#fff",
+    // position: "absolute",
+    // bottom: 0,
+    // left: 0,
+    // right: 0,
+    // padding: 8,
+    // backgroundColor: "rgba(0, 0, 0, 0.5)",
+    color: "#132D2F",
     fontSize: 14,
     fontFamily: "Nerko_One",
     textAlign: "center",
@@ -136,8 +97,8 @@ const styles = StyleSheet.create({
     height: "30%",
     padding: 18,
     top: 40,
-   marginLeft: 16,
-   marginRight: 16,
+    marginLeft: 16,
+    marginRight: 16,
     justifyContent: "center",
     backgroundColor: "#FAE5D2",
     borderColor: "#132D2F",
@@ -205,6 +166,17 @@ const styles = StyleSheet.create({
     marginBottom: 90,
     paddingHorizontal: 10,
   },
+  selectionCategory: {
+    position: "absolute",
+    width: "70%",
+    bottom: 8,
+    backgroundColor: "#ffff",
+    alignSelf: "center",
+    paddingHorizontal: "10%",
+    borderRadius: 14,
+    borderColor: "#132D2F",
+    borderWidth: 2,
+  },
 });
 
-export default CardList;
+export default CardsDeals;

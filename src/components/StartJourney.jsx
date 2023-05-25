@@ -14,33 +14,54 @@ import SearchBar from "./SearchBar";
 import JourneyCard from "./JourneyCard";
 import CountryInfoSlider from "./CountryInfoSlider";
 import Cards from "./Cards";
+import CardsDeals from "./CardsDeals";
 
 const img = require("../../assets/image/duck.png");
 const arrow = require("../../assets/image/arrowLeft.png");
 const countryImage = require("../../assets/image/country.png");
 
+const dataDeals = [
+  {
+    pays: "France",
+    imageSource: require("../../assets/image/deal1.png"),
+  },
+  {
+    pays: "États-Unis",
+    imageSource: require("../../assets/image/deal2.png"),
+  },
+  {
+    pays: "Canada",
+    imageSource: require("../../assets/image/deal3.png"),
+  },
+];
 const data = [
   {
+    id: "fr",
     drapeau: "🇫🇷",
     pays: "France",
   },
   {
+    id: "usa",
     drapeau: "🇺🇸",
     pays: "États-Unis",
   },
   {
+    id: "ca",
     drapeau: "🇨🇦",
     pays: "Canada",
   },
   {
+    id: "de",
     drapeau: "🇩🇪",
     pays: "Allemagne",
   },
   {
+    id: "uk",
     drapeau: "🇬🇧",
     pays: "Royaume-Uni",
   },
   {
+    id: "jp",
     drapeau: "🇯🇵",
     pays: "Japon",
   },
@@ -77,19 +98,30 @@ const transportData = [
 const backgroundImage = require("../../assets/image/BG.png");
 const shapedBackgroundeImage = require("../../assets/image/shapedBG.png");
 
+let searchResuts = {};
+
 const StartJourney = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [currentModalIndex, setCurrentModalIndex] = useState(0);
   const [scrollPosition, setScrollPosition] = useState(0);
+  let [searchTextState, setSearchText] = useState("");
 
   const scrollViewRef = useRef(null);
+
+
+  // GET RECHERCHE
+  const handleSearch = (searchText) => {
+    searchResuts = searchText;
+    console.log(searchResuts[0].name);
+    setSearchText(searchResuts);
+    return searchResuts;
+  };
 
   const openModal = () => {
     const nextModalIndex = currentModalIndex + 1;
     setCurrentModalIndex(nextModalIndex);
     setModalVisible(true);
     scrollViewRef.current?.scrollTo({ y: scrollPosition, animated: false });
-    // console.log("currentModalIndex: ", currentModalIndex);
   };
 
   const backModal = () => {
@@ -130,7 +162,7 @@ const StartJourney = () => {
               <ScrollView style={styles.scrollView}>
                 <View style={styles.modalContainer}>
                   <View style={styles.journeyStep}>
-                    <SearchBar />
+                    <SearchBar onSearch={handleSearch} />
                     <View style={styles.body}>
                       <Text style={styles.title}>Pays</Text>
                       <JourneyCard data={data} />
@@ -160,7 +192,7 @@ const StartJourney = () => {
           {currentModalIndex === 2 && (
             <View style={{ flex: 1 }}>
               <Image source={countryImage} style={styles.countryBg} />
-              <Text style={styles.countryTitle}>Nom du pays</Text>
+              <Text style={styles.countryTitle}>{searchTextState[0].name}</Text>
               <ScrollView style={styles.scrollView}>
                 <Image
                   source={shapedBackgroundeImage}
@@ -180,7 +212,7 @@ const StartJourney = () => {
                       }}
                       scrollEventThrottle={400}
                     >
-                      <CountryInfoSlider />
+                      <CountryInfoSlider search={searchTextState} />
                     </ScrollView>
                   </View>
                   <TouchableOpacity
@@ -200,67 +232,26 @@ const StartJourney = () => {
                   </TouchableOpacity>
                 </View>
               </ScrollView>
-
-              {/* <ScrollView style={styles.scrollView}>
-
-                  <View style={styles.modalContainer}>
-                    <View style={styles.journeyStep}>
-                      <ScrollView
-                        ref={scrollViewRef}
-                        onLayout={() => scrollViewRef.current.scrollToEnd()}
-                        onScroll={({ nativeEvent }) => {
-                          scrollViewRef.current.scrollTo({
-                            y: nativeEvent.layoutMeasurement.height,
-                            x: 0,
-                            animated: false,
-                          });
-                        }}
-                        scrollEventThrottle={400}
-                      >
-                        <Text>Nom du pays</Text>
-                        <CountryInfoSlider />
-                      </ScrollView>
-                    </View>
-                    <TouchableOpacity
-                      onPress={
-                        currentModalIndex >= 1 && currentModalIndex <= 2
-                          ? openModal
-                          : closeModal
-                      }
-                      style={styles.nextButton}
-                    >
-                      <Text style={styles.btnText}>
-                        {currentModalIndex >= 1 && currentModalIndex <= 2
-                          ? "Suivant"
-                          : "Fermer"}
-                      </Text>
-                      <Image source={arrow} style={{ marginLeft: 5 }} />
-                    </TouchableOpacity>
-                  </View>
-      
-              </ScrollView> */}
             </View>
           )}
           {currentModalIndex === 3 && (
-            <ImageBackground
-              source={
-                currentModalIndex === 1
-                  ? backgroundImage
-                  : shapedBackgroundeImage
-              }
-              resizeMode="cover"
-              style={currentModalIndex === 1 ? styles.bg : styles.bg}
-            >
+            <View style={styles.bgDeals}>
               <ScrollView style={styles.scrollView}>
                 <View style={styles.modalContainer}>
-                  <View style={styles.journeyStep}>
+                  <View style={styles.journeyStep2}>
                     <View style={styles.topDeal}>
-                      <Text>Top deal de dernière minute</Text>
-                      <Cards data={data} />
+                      <Text style={styles.title2}>
+                        Top deal de dernière minute !
+                      </Text>
+                      <CardsDeals data={dataDeals} />
                     </View>
-                    <View>
+                    <ScrollView>
                       <Text>Top activities</Text>
-                    </View>
+                      {/* <Image
+                        source={shapedBackgroundeImage}
+                        style={styles.shapedBgDeals}
+                      /> */}
+                    </ScrollView>
                   </View>
 
                   <TouchableOpacity
@@ -280,7 +271,7 @@ const StartJourney = () => {
                   </TouchableOpacity>
                 </View>
               </ScrollView>
-            </ImageBackground>
+            </View>
           )}
 
           {/* Return button */}
@@ -312,11 +303,22 @@ const styles = StyleSheet.create({
   bg: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: "#FFFAF5",
     backgroundColor: "white",
     borderRadius: 20,
   },
+  bgDeals: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "#132D2F",
+    borderRadius: 20,
+  },
   shapedBg: {
+    flex: 1,
+    top: 300,
+    paddingTop: 300,
+    marginBottom: 250, //ICI
+  },
+  shapedBgDeals: {
     flex: 1,
     top: 300,
     paddingTop: 300,
@@ -345,6 +347,12 @@ const styles = StyleSheet.create({
   },
   journeyStep: {
     paddingTop: 60,
+  },
+  journeyStep2: {
+    paddingTop: 30,
+  },
+  topDeal: {
+    marginTop: 20,
   },
   button: {
     padding: 10,
@@ -421,5 +429,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#132D2F",
     marginBottom: 20,
+  },
+  title2: {
+    paddingTop: 40,
+    fontFamily: "ClashDisplay_bold",
+    fontSize: 22,
+    color: "white",
+    marginLeft: 20,
+    marginBottom: 10,
+    textAlign: "left",
   },
 });

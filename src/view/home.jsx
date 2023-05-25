@@ -21,12 +21,6 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      {/* <ImageBackground
-        source={backgroundImage}
-        resizeMode="cover"
-        style={styles.image}
-      >
-      </ImageBackground> */}
         <Map />
         <StartJourney />
     </View>

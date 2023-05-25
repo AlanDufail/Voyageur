@@ -38,7 +38,10 @@ const CompleteMap = () => {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 20,
     position: "relative",
+    width: "100%",
+    height: 300,
     // flex: 1,
     // backgroundColor: "white",
   },

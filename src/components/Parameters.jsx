@@ -7,6 +7,7 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 
 const Parameters = () => {
@@ -21,6 +22,8 @@ const Parameters = () => {
   };
 
   const sunImage = require("../../assets/image/sunEarth.png");
+  const arrow = require("../../assets/image/arrowLeft.png");
+  const shapedBackgroundeImage = require("../../assets/image/shapedBG.png");
 
   return (
     <View style={styles.container}>
@@ -29,24 +32,11 @@ const Parameters = () => {
       </TouchableOpacity>
       <Modal visible={modalVisible} onRequestClose={closeModal}>
         <View style={styles.modalContainer}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.text}>Amélioré votre expérience</Text>
-            <Image source={sunImage} style={styles.image} />
+          <TouchableOpacity style={styles.enhanceButton}>
+            <Text style={styles.enhanceText}>Amélioré votre expérience</Text>
+            <Image source={sunImage} style={styles.enhanceImage} />
           </TouchableOpacity>
-          <View style={styles.personalMenu}>
-            <TouchableOpacity style={styles.personal}>
-              <Text>🗺️</Text>
-              <Text>Partager mon compte</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.personal}>
-              <Text>⚙️</Text>
-              <Text>Permissions</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.personal}>
-              <Text>⭐️</Text>
-              <Text>Noté voyageur</Text>
-            </TouchableOpacity>
-          </View>
+          <Image source={shapedBackgroundeImage} style={styles.shapedBg} />
           <View style={styles.socialMenu}>
             <TouchableOpacity style={styles.social}>
               <Text>Nous suivre </Text>
@@ -71,11 +61,17 @@ const Parameters = () => {
               />
             </TouchableOpacity>
           </View>
-          <Button
+
+          <TouchableOpacity onPress={closeModal} style={styles.nextButton}>
+            <Text style={styles.btnText}>Fermer</Text>
+            <Image source={arrow} style={{ marginLeft: 5 }} />
+          </TouchableOpacity>
+
+          {/* <Button
             title="Fermer"
             onPress={closeModal}
             style={styles.closeButton}
-          />
+          /> */}
         </View>
       </Modal>
     </View>
@@ -97,19 +93,63 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
   },
+  enhanceButton: {
+    position: "absolute",
+    top: 200,
+    left: 40,
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    flexDirection: "row",
+    width: 250,
+    // justifyContent: "space-between",
+  },
+  nextButton: {
+    maxWidth: 110,
+    flexDirection: "row",
+    // marginTop: 20,
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 10,
+    borderColor: "#132D2F",
+    borderWidth: 2,
+  },
+  btnText: {
+    alignSelf: "center",
+    fontFamily: "ClashDisplay_bold",
+    fontSize: 15,
+  },
   text: {
     padding: 5,
+    fontFamily: "Nerko_One",
+    corlor: "#EDA47E",
+  },
+  enhanceText: {
+    paddingVertical: 2,
+    paddingRight: 16,
+    fontFamily: "Nerko_One",
+    fontSize: 16,
+    color: "#EDA47E",
   },
   personalMenu: {
     // flex: 1,
   },
+  shapedBg: {
+    position: "absolute",
+    flex: 1,
+    top: 300,
+    paddingTop: 300,
+    marginBottom: 250, //ICI
+  },
   socialMenu: {
+    marginTop: 100,
     padding: "8%",
   },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#132D2F",
   },
   closeButton: {
     backgroundColor: "white",
@@ -122,6 +162,13 @@ const styles = StyleSheet.create({
     left: 60,
     width: 60,
     height: 50,
+  },
+  enhanceImage: {
+    position: "absolute",
+    top: -45,
+    right: -90,
+    width: 150,
+    height: 150,
   },
   arrow: {
     width: "50%",

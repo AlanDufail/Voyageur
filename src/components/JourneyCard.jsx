@@ -5,8 +5,13 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 const drinkImage = require("../../assets/image/drink.png");
 
-const Card = ({ img, title }) => {
+const Card = ({ id, img, title }) => {
   const [isSelected, setSelection] = useState(false);
+
+  const handleCheckboxToggle = () => {
+    setSelection(!isSelected);
+    console.log("Checkbox is " + id)
+  };
 
   return (
     <View style={styles.card}>
@@ -17,7 +22,9 @@ const Card = ({ img, title }) => {
         style={styles.checkbox}
         iconStyle={{ borderColor: "red" }}
         innerIconStyle={{ borderWidth: 2 }}
-        onPress={() => setSelection(!isSelected)}
+        isChecked={isSelected}
+        onPress={handleCheckboxToggle}
+        id={id}
       />
       <View style={styles.body}>
         <Text style={styles.countryFlag}>{img}</Text>
@@ -34,7 +41,7 @@ const JourneyCard = ({ data }) => {
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <View style={styles.cardList}>
           {data.map((item, index) => (
-            <Card key={index} img={item.drapeau} title={item.pays} />
+            <Card key={index} img={item.drapeau} title={item.pays} id={item.id}/>
           ))}
         </View>
       </ScrollView>

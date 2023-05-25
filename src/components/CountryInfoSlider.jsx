@@ -10,9 +10,11 @@ import {
   ScrollView,
 } from "react-native";
 
-const CountryInfoSlider = () => {
+const CountryInfoSlider = ({search}) => {
   const [displayMode, setDisplayMode] = useState("keyinfo"); // État pour suivre le mode d'affichage
   const [displayHealth, setDisplayHealth] = useState("general_health");
+
+  console.log(search);
 
   // Données pour la liste des pays par continents
   const continentsData = [
@@ -25,8 +27,123 @@ const CountryInfoSlider = () => {
 
   // Données pour la liste avec possibilité d'ajouter des éléments
   const countriesData = [
-    { name: "France", image: "🇫🇷" },
-    { name: "Espagne", image: "🇪🇸" },
+    {
+      "name": "France",
+      "image": "🇫🇷",
+      "majorCities": [
+        { "name": "Paris" },
+        { "name": "Marseille" },
+        { "name": "Lyon" },
+        { "name": "Toulouse" },
+        { "name": "Nice" },
+        { "name": "Nantes" },
+        { "name": "Strasbourg" }
+      ],
+      "phone_dial": "+33",
+      "mobile_operators": [
+        { "name": "Orange" },
+        { "name": "SFR" },
+        { "name": "Bouygues Telecom" },
+        { "name": "Free" }
+      ],
+      "mobile_image": require("../../assets/image/mobile.png"),
+      "plug_types": [
+        {
+          "name": "Type C",
+          "image": require("../../assets/image/plug_c.png")
+        },
+        {
+          "name": "Type E",
+          "image": require("../../assets/image/plug_e.png")
+        },
+        {
+          "name": "Type F",
+          "image": require("../../assets/image/plug_f.png")
+        }
+      ],
+      "languages": [
+        { "name": "Français" }
+      ],
+      "airports": [
+        { "name": "Aéroport de Paris-Charles-de-Gaulle" },
+        { "name": "Aéroport de Paris-Orly" },
+        { "name": "Aéroport de Nice-Côte d'Azur" }
+      ],
+      "airport_image": require("../../assets/image/airport1.png"),
+      "driving_side": "Right",
+      "driving_image": require("../../assets/image/right_side.png"),
+      "currency": "Euro (€)",
+      "emergencyList": [
+        {
+          "logo": "🚔",
+          "label": "Police",
+          "phone_number": "17"
+        },
+        {
+          "logo": "🚒",
+          "label": "Pompiers",
+          "phone_number": "18"
+        },
+        {
+          "logo": "🚑",
+          "label": "Ambulance",
+          "phone_number": "15"
+        }
+      ],
+      "visa": "🛂 Pas nécessaire pour les ressortissants de l'UE et de l'espace Schengen",
+      "medical_info": [
+        {
+          "title": "Sécurité de l'eau",
+          "label": "L'eau du robinet est généralement sûre à boire"
+        },
+        {
+          "title": "Vaccination",
+          "label": "Aucune vaccination spécifique requise"
+        },
+        {
+          "title": "Assurance maladie",
+          "label": "Il est recommandé de souscrire une assurance maladie"
+        }
+      ],
+      "medical_covid": {
+        "last_update": "06 janvier 2023",
+        "isOpen": true,
+        "travel_restriction": [
+          {
+            "title": "Quarantaine",
+            "image": require("../../assets/image/Home.png"),
+            "required": "Non requis"
+          },
+          {
+            "title": "Statut d'entrée",
+            "image": require("../../assets/image/Enter.png"),
+            "required": "Non requis"
+          },
+          {
+            "title": "Test Covid",
+            "image": require("../../assets/image/Vector.png"),
+            "required": "Non requis"
+          }
+        ],
+        "mask": [
+          {
+            "title": "Masque",
+            "image": require("../../assets/image/Enter.png"),
+            "required": "Requis dans certains cas"
+          },
+          {
+            "title": "Restaurants et bars",
+            "image": require("../../assets/image/Home.png"),
+            "required": "Conseillé"
+          },
+          {
+            "title": "Transport public",
+            "image": require("../../assets/image/Vector.png"),
+            "required": "Conseillé"
+          }
+        ]
+      }
+    },
     {
       name: "Italie",
       image: "🇮🇹",
@@ -174,8 +291,461 @@ const CountryInfoSlider = () => {
         ],
       },
     },
+    {
+      name: "Canada",
+      image: "🇨🇦",
+      majorCities: [
+        { name: "Toronto" },
+        { name: "Montréal" },
+        { name: "Vancouver" },
+        { name: "Calgary" },
+        { name: "Ottawa" },
+        { name: "Québec" },
+        { name: "Edmonton" },
+      ],
+      phone_dial: "+1",
+      mobile_operators: [
+        { name: "Rogers" },
+        { name: "Bell" },
+        { name: "Telus" },
+        { name: "Freedom Mobile" },
+      ],
+      mobile_image: require("../../assets/image/mobile.png"),
+      plug_types: [
+        {
+          name: "Type A",
+          image: require("../../assets/image/plug_a.png"),
+        },
+        {
+          name: "Type B",
+          image: require("../../assets/image/plug_b.png"),
+        },
+        {
+          name: "Type C",
+          image: require("../../assets/image/plug_c.png"),
+        },
+      ],
+      languages: [{ name: "Anglais" }, { name: "Français" }],
+      airports: [
+        { name: "Aéroport de Toronto" },
+        { name: "Aéroport de Vancouver" },
+        { name: "Aéroport de Montréal" },
+      ],
+      airport_image: require("../../assets/image/airport1.png"),
+      driving_side: "Right",
+      driving_image: require("../../assets/image/right_side.png"),
+      currency: "Dollar canadien ($)",
+      emergencyList: [
+        {
+          logo: "🚔",
+          label: "Police",
+          phone_number: "911",
+        },
+        {
+          logo: "🚒",
+          label: "Pompiers",
+          phone_number: "911",
+        },
+        {
+          logo: "🚑",
+          label: "Ambulance",
+          phone_number: "911",
+        },
+      ],
+      visa: "🪪 Pas nécessaire pour la plupart des pays",
+      medical_info: [
+        {
+          title: "Sécurité de l'eau",
+          label: "L'eau du robinet est généralement sûre à boire",
+        },
+        {
+          title: "Vaccination",
+          label: "Aucune vaccination spécifique requise",
+        },
+        {
+          title: "Assurance maladie",
+          label: "Il est recommandé de souscrire une assurance maladie",
+        },
+      ],
+      medical_covid: {
+        last_update: "06 janvier 2023",
+        isOpen: true,
+        travel_restriction: [
+          {
+            title: "Quarantaine",
+            image: require("../../assets/image/Home.png"),
+            required: "Non requis",
+          },
+          {
+            title: "Statut d'entrée",
+            image: require("../../assets/image/Enter.png"),
+            required: "Non requis",
+          },
+          {
+            title: "Test Covid",
+            image: require("../../assets/image/Vector.png"),
+            required: "Non requis",
+          },
+        ],
+        mask: [
+          {
+            title: "Masque",
+            image: require("../../assets/image/Enter.png"),
+            required: "Requis dans certains cas",
+          },
+          {
+            title: "Restaurants et bars",
+            image: require("../../assets/image/Home.png"),
+            required: "Conseillé",
+          },
+          {
+            title: "Transport public",
+            image: require("../../assets/image/Vector.png"),
+            required: "Conseillé",
+          },
+        ],
+      },
+    },
+    {
+      name: "Japon",
+      image: "🇯🇵",
+      majorCities: [
+        { name: "Tokyo" },
+        { name: "Osaka" },
+        { name: "Kyoto" },
+        { name: "Hiroshima" },
+        { name: "Yokohama" },
+        { name: "Nagoya" },
+        { name: "Sapporo" },
+      ],
+      phone_dial: "+81",
+      mobile_operators: [
+        { name: "NTT Docomo" },
+        { name: "SoftBank" },
+        { name: "au by KDDI" },
+      ],
+      mobile_image: require("../../assets/image/mobile.png"),
+      plug_types: [
+        {
+          name: "Type A",
+          image: require("../../assets/image/plug_a.png"),
+        },
+        {
+          name: "Type B",
+          image: require("../../assets/image/plug_b.png"),
+        },
+        {
+          name: "Type C",
+          image: require("../../assets/image/plug_c.png"),
+        },
+      ],
+      languages: [{ name: "Japonais" }],
+      airports: [
+        { name: "Aéroport de Tokyo" },
+        { name: "Aéroport d'Osaka" },
+        { name: "Aéroport de Nagoya" },
+      ],
+      airport_image: require("../../assets/image/airport1.png"),
+      driving_side: "Left",
+      driving_image: require("../../assets/image/left_side.png"),
+      currency: "Yen (¥)",
+      emergencyList: [
+        {
+          logo: "🚔",
+          label: "Police",
+          phone_number: "110",
+        },
+        {
+          logo: "🚒",
+          label: "Pompiers",
+          phone_number: "119",
+        },
+        {
+          logo: "🚑",
+          label: "Ambulance",
+          phone_number: "119",
+        },
+      ],
+      visa: "🎌 Pas nécessaire pour les séjours touristiques de moins de 90 jours",
+      medical_info: [
+        {
+          title: "Sécurité de l'eau",
+          label: "L'eau du robinet est généralement sûre à boire",
+        },
+        {
+          title: "Vaccination",
+          label: "Aucune vaccination spécifique requise",
+        },
+        {
+          title: "Assurance maladie",
+          label: "Il est recommandé de souscrire une assurance maladie",
+        },
+      ],
+      medical_covid: {
+        last_update: "06 janvier 2023",
+        isOpen: true,
+        travel_restriction: [
+          {
+            title: "Quarantaine",
+            image: require("../../assets/image/Home.png"),
+            required: "Requise",
+          },
+          {
+            title: "Statut d'entrée",
+            image: require("../../assets/image/Enter.png"),
+            required: "Non requis",
+          },
+          {
+            title: "Test Covid",
+            image: require("../../assets/image/Vector.png"),
+            required: "Requis",
+          },
+        ],
+        mask: [
+          {
+            title: "Masque",
+            image: require("../../assets/image/Enter.png"),
+            required: "Requis dans certains cas",
+          },
+          {
+            title: "Restaurants et bars",
+            image: require("../../assets/image/Home.png"),
+            required: "Conseillé",
+          },
+          {
+            title: "Transport public",
+            image: require("../../assets/image/Vector.png"),
+            required: "Conseillé",
+          },
+        ],
+      },
+    },
+    {
+      name: "États-Unis d'Amérique",
+      image: "🇺🇸",
+      majorCities: [
+        { name: "New York" },
+        { name: "Los Angeles" },
+        { name: "Chicago" },
+        { name: "San Francisco" },
+        { name: "Miami" },
+        { name: "Las Vegas" },
+        { name: "Washington, D.C." },
+      ],
+      phone_dial: "+1",
+      mobile_operators: [
+        { name: "AT&T" },
+        { name: "Verizon" },
+        { name: "T-Mobile" },
+      ],
+      mobile_image: require("../../assets/image/mobile.png"),
+      plug_types: [
+        {
+          name: "Type A",
+          image: require("../../assets/image/plug_a.png"),
+        },
+        {
+          name: "Type B",
+          image: require("../../assets/image/plug_b.png"),
+        },
+      ],
+      languages: [{ name: "Anglais" }],
+      airports: [
+        { name: "Aéroport de New York" },
+        { name: "Aéroport de Los Angeles" },
+        { name: "Aéroport de Chicago" },
+      ],
+      airport_image: require("../../assets/image/airport1.png"),
+      driving_side: "Right",
+      driving_image: require("../../assets/image/right_side.png"),
+      currency: "Dollar américain ($)",
+      emergencyList: [
+        {
+          logo: "🚔",
+          label: "Police",
+          phone_number: "911",
+        },
+        {
+          logo: "🚒",
+          label: "Pompiers",
+          phone_number: "911",
+        },
+        {
+          logo: "🚑",
+          label: "Ambulance",
+          phone_number: "911",
+        },
+      ],
+      visa: "🛂 ESTA (Système électronique d'autorisation de voyage) pour les séjours touristiques de moins de 90 jours",
+      medical_info: [
+        {
+          title: "Sécurité de l'eau",
+          label: "L'eau du robinet est généralement sûre à boire",
+        },
+        {
+          title: "Vaccination",
+          label: "Aucune vaccination spécifique requise",
+        },
+        {
+          title: "Assurance maladie",
+          label: "Il est recommandé de souscrire une assurance maladie",
+        },
+      ],
+      medical_covid: {
+        last_update: "06 janvier 2023",
+        isOpen: true,
+        travel_restriction: [
+          {
+            title: "Quarantaine",
+            image: require("../../assets/image/Home.png"),
+            required: "Non requis",
+          },
+          {
+            title: "Statut d'entrée",
+            image: require("../../assets/image/Enter.png"),
+            required: "Non requis",
+          },
+          {
+            title: "Test Covid",
+            image: require("../../assets/image/Vector.png"),
+            required: "Non requis",
+          },
+        ],
+        mask: [
+          {
+            title: "Masque",
+            image: require("../../assets/image/Enter.png"),
+            required: "Requis dans certains cas",
+          },
+          {
+            title: "Restaurants et bars",
+            image: require("../../assets/image/Home.png"),
+            required: "Conseillé",
+          },
+          {
+            title: "Transport public",
+            image: require("../../assets/image/Vector.png"),
+            required: "Conseillé",
+          },
+        ],
+      },
+    },
+    {
+      name: "Espagne",
+      image: "🇪🇸",
+      majorCities: [
+        { name: "Madrid" },
+        { name: "Barcelone" },
+        { name: "Valence" },
+        { name: "Séville" },
+        { name: "Malaga" },
+        { name: "Bilbao" },
+        { name: "Alicante" },
+      ],
+      phone_dial: "+34",
+      mobile_operators: [
+        { name: "Movistar" },
+        { name: "Vodafone" },
+        { name: "Orange" },
+        { name: "Yoigo" },
+      ],
+      mobile_image: require("../../assets/image/mobile.png"),
+      plug_types: [
+        {
+          name: "Type C",
+          image: require("../../assets/image/plug_c.png"),
+        },
+        {
+          name: "Type F",
+          image: require("../../assets/image/plug_f.png"),
+        },
+      ],
+      languages: [{ name: "Espagnol" }],
+      airports: [
+        { name: "Aéroport de Madrid" },
+        { name: "Aéroport de Barcelone" },
+        { name: "Aéroport de Valence" },
+      ],
+      airport_image: require("../../assets/image/airport1.png"),
+      driving_side: "Right",
+      driving_image: require("../../assets/image/right_side.png"),
+      currency: "Euro (€)",
+      emergencyList: [
+        {
+          logo: "🚔",
+          label: "Police",
+          phone_number: "112",
+        },
+        {
+          logo: "🚒",
+          label: "Pompiers",
+          phone_number: "112",
+        },
+        {
+          logo: "🚑",
+          label: "Ambulance",
+          phone_number: "112",
+        },
+      ],
+      visa: "🛂 Pas nécessaire pour les ressortissants de l'UE et de l'espace Schengen",
+      medical_info: [
+        {
+          title: "Sécurité de l'eau",
+          label: "L'eau du robinet est généralement sûre à boire",
+        },
+        {
+          title: "Vaccination",
+          label: "Aucune vaccination spécifique requise",
+        },
+        {
+          title: "Assurance maladie",
+          label: "Il est recommandé de souscrire une assurance maladie",
+        },
+      ],
+      medical_covid: {
+        last_update: "06 janvier 2023",
+        isOpen: true,
+        travel_restriction: [
+          {
+            title: "Quarantaine",
+            image: require("../../assets/image/Home.png"),
+            required: "Non requis",
+          },
+          {
+            title: "Statut d'entrée",
+            image: require("../../assets/image/Enter.png"),
+            required: "Non requis",
+          },
+          {
+            title: "Test Covid",
+            image: require("../../assets/image/Vector.png"),
+            required: "Non requis",
+          },
+        ],
+        mask: [
+          {
+            title: "Masque",
+            image: require("../../assets/image/Enter.png"),
+            required: "Requis dans certains cas",
+          },
+          {
+            title: "Restaurants et bars",
+            image: require("../../assets/image/Home.png"),
+            required: "Conseillé",
+          },
+          {
+            title: "Transport public",
+            image: require("../../assets/image/Vector.png"),
+            required: "Conseillé",
+          },
+        ],
+      },
+    },
+
     // Ajoutez les données pour les autres pays
   ];
+
+  // const countriesData = require("../../assets/data/countryData.json")
 
   const healthCovid = [
     {
@@ -229,7 +799,7 @@ const CountryInfoSlider = () => {
       <View style={[styles.container, styles.containerKeyInfo]}>
         <Text style={styles.keyInfoTtile}>Capitale</Text>
         <View style={styles.capitalInfo}>
-          <Text style={styles.capitalText}>{countriesData[2].name}</Text>
+          <Text style={styles.capitalText}>{search[0].name}</Text>
           <Image source={img} style={styles.capitalImage} />
         </View>
 
@@ -239,7 +809,7 @@ const CountryInfoSlider = () => {
           showsHorizontalScrollIndicator={false}
           style={styles.majorCities}
         >
-          {countriesData[2].majorCities.map((country, index) => (
+          {search[0].majorCities.map((country, index) => (
             <View style={styles.city} key={index}>
               <Text style={styles.cityText}>{country.name}</Text>
             </View>
@@ -247,14 +817,14 @@ const CountryInfoSlider = () => {
         </ScrollView>
 
         <Text style={styles.keyInfoTtile}>Code de composition</Text>
-        <Text style={styles.phone_dial}> {countriesData[2].phone_dial}</Text>
+        <Text style={styles.phone_dial}> {search[0].phone_dial}</Text>
 
         <Text style={styles.keyInfoTtile}>Mobile operators</Text>
         <View style={styles.mobileOperators}>
-          {countriesData[2].mobile_operators.map((item, index) => (
+          {search[0].mobile_operators.map((item, index) => (
             <View key={index} style={styles.mobile}>
               <Image
-                source={countriesData[2].mobile_image}
+                source={search[0].mobile_image}
                 style={styles.mobileImage}
               />
               <Text style={styles.mobileLabel}>{item.name}</Text>
@@ -264,7 +834,7 @@ const CountryInfoSlider = () => {
 
         <Text style={styles.keyInfoTtile}>Type de prise</Text>
         <View style={styles.plugTypes}>
-          {countriesData[2].plug_types.map((item, index) => (
+          {search[0].plug_types.map((item, index) => (
             <View key={index} style={styles.plug}>
               <Image source={item.image} style={styles.plugImage} />
               <Text style={styles.plugName}>{item.name}</Text>
@@ -273,7 +843,7 @@ const CountryInfoSlider = () => {
         </View>
 
         <Text style={styles.keyInfoTtile}>Langue officiel</Text>
-        {countriesData[2].languages.map((item, index) => (
+        {search[0].languages.map((item, index) => (
           <Text style={styles.phone_dial} key={index}>
             {item.name}
           </Text>
@@ -287,10 +857,10 @@ const CountryInfoSlider = () => {
       <View style={[styles.container, styles.containerKeyInfo]}>
         <Text style={styles.keyInfoTtile}>Main airport</Text>
         <View style={styles.mobileOperators}>
-          {countriesData[2].airports.map((item, index) => (
+          {search[0].airports.map((item, index) => (
             <View key={index} style={styles.mobile}>
               <Image
-                source={countriesData[2].airport_image}
+                source={search[0].airport_image}
                 style={styles.airportImage}
               />
               <Text style={styles.mobileLabel}>{item.name}</Text>
@@ -300,10 +870,10 @@ const CountryInfoSlider = () => {
         <Text style={styles.keyInfoTtile}>Driving side</Text>
         <View style={styles.drivingInfo}>
           <Text style={styles.capitalText}>
-            {countriesData[2].driving_side}
+            {search[0].driving_side}
           </Text>
           <Image
-            source={countriesData[2].driving_image}
+            source={search[0].driving_image}
             style={styles.capitalImage}
           />
         </View>
@@ -314,7 +884,7 @@ const CountryInfoSlider = () => {
     return (
       <View style={[styles.container, styles.containerKeyInfo]}>
         <Text style={styles.keyInfoTtile}>Currency section</Text>
-        <Text style={styles.currency}>{countriesData[2].currency}</Text>
+        <Text style={styles.currency}>{search[0].currency}</Text>
       </View>
     );
   };
@@ -323,7 +893,7 @@ const CountryInfoSlider = () => {
     return (
       <View style={[styles.container, styles.containerKeyInfo]}>
         <Text style={styles.emergencyTitle}>Numéros d'urgence</Text>
-        {countriesData[2].emergencyList.map((item, index) => (
+        {search[0].emergencyList.map((item, index) => (
           <View style={styles.emergency} key={index}>
             <Text>
               {item.logo} {item.label}
@@ -340,7 +910,7 @@ const CountryInfoSlider = () => {
       <View style={[styles.container, styles.containerKeyInfo]}>
         <Text style={styles.emergencyTitle}>Id/visa section</Text>
         <View>
-          <Text style={styles.currency}>{countriesData[2].visa}</Text>
+          <Text style={styles.currency}>{search[0].visa}</Text>
           <Text style={styles.currencyParaph}>
             Conseil: Se munir d'une copie imprimé en cas de perte/vol
           </Text>
@@ -403,7 +973,7 @@ const CountryInfoSlider = () => {
   const renderHealthGeneral = () => {
     return (
       <View style={[styles.container, styles.containerKeyInfo]}>
-        {countriesData[2].medical_info.map((item, index) => (
+        {search[0].medical_info.map((item, index) => (
           <View key={index}>
             <Text style={styles.medicTitle}>{item.title}</Text>
             <Text style={styles.medicParaph}>{item.label}</Text>
@@ -418,37 +988,49 @@ const CountryInfoSlider = () => {
       <View style={[styles.container, styles.containerKeyInfo]}>
         <View style={styles.countryFlow}>
           <Text style={styles.emergencyTitle}>
-            France  ->  {countriesData[2].name}
+            France -> {search[0].name}
           </Text>
           <Text style={styles.lastUpdate}>
-            Dernière mise à jours: {countriesData[2].medical_covid.last_update}
+            Dernière mise à jours: {search[0].medical_covid.last_update}
           </Text>
         </View>
         <View style={styles.openCountry}>
-          <Image source={require("../../assets/image/sun.png")} style={styles.openCountryImage}/>
-          <Text style={styles.openCountryText}>{countriesData[2].medical_covid.isOpen === true ? "Ouvert" : "Fermé"}</Text>
+          <Image
+            source={require("../../assets/image/sun.png")}
+            style={styles.openCountryImage}
+          />
+          <Text style={styles.openCountryText}>
+            {search[0].medical_covid.isOpen === true
+              ? "Ouvert"
+              : "Fermé"}
+          </Text>
           <Text style={styles.openCountryDesc}>
-          *{countriesData[2].name} est {" "}
-            {countriesData[2].medical_covid.isOpen === true ? "ouvert" : "fermé"} aux touristes
+            *{search[0].name} est{" "}
+            {search[0].medical_covid.isOpen === true
+              ? "ouvert"
+              : "fermé"}{" "}
+            aux touristes
           </Text>
         </View>
         <View style={styles.travel}>
           <Text style={styles.emergencyTitle}>Restriction de voyage</Text>
-          {countriesData[2].medical_covid.travel_restriction.map((item, index) => (
-            <View key={index} style={styles.restriction}>
-              <Image source={item.image} style={styles.restrictionImage}/>
-              <View>
-                <Text style={styles.restrictionTitle}>{item.title}</Text>
-                <Text style={styles.restrictionDesc}>{item.required}</Text>
+          {search[0].medical_covid.travel_restriction.map(
+            (item, index) => (
+              <View key={index} style={styles.restriction}>
+                <Image source={item.image} style={styles.restrictionImage} />
+                <View>
+                  <Text style={styles.restrictionTitle}>{item.title}</Text>
+                  <Text style={styles.restrictionDesc}>{item.required}</Text>
+                </View>
               </View>
-            </View>
-          ))}
+            )
+          )}
         </View>
         <View style={styles.other}>
           <Text style={styles.emergencyTitle}>Masques :</Text>
-          {countriesData[2].medical_covid.mask.map((item, index) => (
+          {search[0].medical_covid.mask.map((item, index) => (
             <View key={index} style={styles.restriction}>
-              <Image source={item.image} style={styles.restrictionImage}/>
+              <Image source={item.image} style={styles.restrictionImage} />
               <View>
                 <Text style={styles.restrictionTitle}>{item.title}</Text>
                 <Text style={styles.restrictionDesc}>{item.required}</Text>
@@ -691,8 +1273,8 @@ const styles = StyleSheet.create({
   },
   openCountryDesc: {
     position: "absolute",
-    bottom: 12,
-    left: 85,
+    bottom: 8,
+    left: 40,
     fontSize: 10,
     fontFamily: "Montserrat_medium",
     opacity: 0.5,
@@ -779,6 +1361,8 @@ const styles = StyleSheet.create({
     borderColor: "#132D2F",
     borderWidth: 2,
     borderRadius: 10,
+    maxWidth: 30,
+    maxHeight: 30,
   },
   plugName: {
     marginTop: 10,
